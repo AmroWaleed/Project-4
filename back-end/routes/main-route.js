@@ -1,12 +1,14 @@
-const express = require('express');
+const express = require("express");
 const mainRouter = express.Router();
-const {gitAllPosts,createNewPost} = require
-      ('../controllers/main-controller');
-      
+const {
+  getAllArticles,
+  createNewArticle,
+  changeArticleAuthor
+} = require("../controllers/main-controller");
 
-      mainRouter.get('/posts', gitAllPosts);
-      mainRouter.post('/posts',createNewPost);
-
+mainRouter.get("/articles", getAllArticles);
+mainRouter.post("/articles", createNewArticle);
+mainRouter.put("./articles/:id/:author", changeArticleAuthor);
 
 
 module.exports = mainRouter;

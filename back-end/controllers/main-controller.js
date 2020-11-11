@@ -1,39 +1,47 @@
-const posts = [
-    {
+const articles = [
+  {
     id: 1,
-    title: 'eat fried chicken',
-    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
-    author: 'jouza',
-    },
-    {
+    title: "eat fried chicken",
+    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    author: "jouza",
+  },
+  {
     id: 2,
-    title: 'how to studey react',
-    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
-    author: 'abd',
-    },
-    {
+    title: "how to studey react",
+    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    author: "abd",
+  },
+  {
     id: 3,
-    title: 'how to vote',
-    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
-    author: 'amr',
-    },
-    ];
+    title: "how to vote",
+    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit",
+    author: "amr",
+  },
+];
 
-    
-    const gitAllPosts = (req,res)=>{
-        console.log('getAllPosts')
-        res.json(posts)};
-    
-    const createNewPost=(req,res)=>{
-        console.log('creat new post')
-        res.json(posts);
-    }    
-
-    
-        
-   
-
-    
+let last_id = 3;
 
 
-    module.exports = {gitAllPosts, createNewPost};
+const getAllArticles = (req, res) => {
+  console.log("getAllArticles");
+  res.json(articles);
+};
+const createNewArticle = (req, res) => {
+  console.log("creat new article");
+  console.log("REQ.Body: ", req.body);
+  req.body.id = ++last_id;
+  articles.push(req.body);
+  res.json(articles);
+};
+
+// const changeArticleAuthor = (req, res) => {
+//   console.log("change article author");
+//   console.log("REQ.body ",req.body);
+//   req.body.author = req.body;
+  
+
+
+//   res.json(articles);
+// };
+
+module.exports = { getAllArticles, createNewArticle, changeArticleAuthor };
