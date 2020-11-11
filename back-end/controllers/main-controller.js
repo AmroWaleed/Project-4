@@ -24,10 +24,10 @@ const posts = [
         console.log('getAllPosts')
         res.json(posts)};
     
-    // const createNewPost=(req,res)=>{
-    //     console.log('creat new post')
-    //     res.json(posts);
-    // }    
+    const createNewPost=(req,res)=>{
+        console.log('creat new post')
+        res.json(posts);
+    }    
 
     
         
@@ -36,4 +36,4 @@ const posts = [
     
 
 
-    module.exports = {gitAllPosts,/* createNewPost*/};
+    module.exports = {gitAllPosts, createNewPost};
