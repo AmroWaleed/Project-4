@@ -1,4 +1,4 @@
-const articles = [
+let articles = [
   {
     id: 1,
     title: "eat fried chicken",
@@ -33,16 +33,9 @@ const createNewArticle = (req, res) => {
   res.json(articles);
 };
 
-// const changeArticleAuthor = (req, res) => {
-//   console.log("change article author");
-//   console.log("REQ.body ",req.body);
-//   req.body.author = req.body;
-
-//   res.json(articles);
-// };
 const changeArticleTitleById = (req, res) => {
   console.log("REQ.PARAMS: ", req.params);
-  console.log("ID: ", req.params.id); // string
+  console.log("ID: ", req.params.id);
   for (let i = 0; i < articles.length; i++) {
     if (articles[i].id == req.params.id) {
       articles[i].title = req.params.newTitle;
@@ -51,8 +44,44 @@ const changeArticleTitleById = (req, res) => {
   res.json(articles);
 };
 
+const changeArticleAuthorById = (req, res) => {
+  console.log("REQ.params: ", req.params);
+  console.log("ID: ", req.params.id);
+  for (let i = 0; i < articles.length; i++) {
+    if (articles[i].id == req.params.id) {
+      articles[i].author = req.body.newAuthor;
+    }
+  }
+
+  res.json(articles);
+};
+
+const deleteArtecleById = (req, res) => {
+  console.log("REQ.params: ", req.params);
+  console.log("ID: ", req.params.id);
+  for (let i = 0; i < articles.length; i++) {
+    if (articles[i].id == req.params.id) {
+      articles[i] = [];
+    }
+  }
+  res.json(articles);
+};
+
+const deleteArtcleByAuthor = (req, res) => {
+  console.log("REQ.body: ", req.body);
+  console.log("AUTHOR: ", req.body.author);
+  for (let i = 0; i < articles.length; i++) {
+    if (articles[i].author == req.body.author) {
+      articles[i] =[];
+    }
+  }
+  res.json(articles);
+};
 module.exports = {
   getAllArticles,
   createNewArticle,
-  changeAticleTitleById /*changeArticleAuthor*/,
+  changeArticleTitleById,
+  changeArticleAuthorById,
+  deleteArtecleById,
+  deleteArtcleByAuthor,
 };
