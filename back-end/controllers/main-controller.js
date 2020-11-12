@@ -6,21 +6,20 @@ const articles = [
     author: "jouza",
   },
   {
-    id: 2,
+    id: 4,
     title: "how to studey react",
     description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
     author: "abd",
   },
   {
-    id: 3,
+    id: 7,
     title: "how to vote",
     description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit",
-    author: "amr",
+    author: "jouza",
   },
 ];
 
-let last_id = 3;
-
+let last_id = 7;
 
 const getAllArticles = (req, res) => {
   console.log("getAllArticles");
@@ -38,10 +37,22 @@ const createNewArticle = (req, res) => {
 //   console.log("change article author");
 //   console.log("REQ.body ",req.body);
 //   req.body.author = req.body;
-  
-
 
 //   res.json(articles);
 // };
+const changeArticleTitleById = (req, res) => {
+  console.log("REQ.PARAMS: ", req.params);
+  console.log("ID: ", req.params.id); // string
+  for (let i = 0; i < articles.length; i++) {
+    if (articles[i].id == req.params.id) {
+      articles[i].title = req.params.newTitle;
+    }
+  }
+  res.json(articles);
+};
 
-module.exports = { getAllArticles, createNewArticle, changeArticleAuthor };
+module.exports = {
+  getAllArticles,
+  createNewArticle,
+  changeAticleTitleById /*changeArticleAuthor*/,
+};
