@@ -1,4 +1,5 @@
-const connoiection = require("../db");
+const connection = require("../db");
+
 
 let articles = [
   {
@@ -22,6 +23,16 @@ let articles = [
 ];
 
 let last_id = 7;
+
+const getAllArticlesDb = (req, res) => {
+  console.log("GETALLARTICLES: ");
+  const queryCommand = `SELECT * FROM users WHERE name = "John"`;
+  connection.query(queryCommand, (err, result, fields) => {
+    if (err) throw err;
+    // result are the data returned by mysql server
+    console.log("RESULT: ", result);
+  });
+};
 
 const getAllArticles = (req, res) => {
   console.log("getAllArticles");
@@ -78,4 +89,5 @@ module.exports = {
   changeArticleAuthorById,
   deleteArtecleById,
   deleteArtcleByAuthor,
+  getAllArticlesDb
 };
