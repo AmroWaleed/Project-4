@@ -1,3 +1,5 @@
+const connoiection = require("../db");
+
 let articles = [
   {
     id: 1,
@@ -59,22 +61,14 @@ const changeArticleAuthorById = (req, res) => {
 const deleteArtecleById = (req, res) => {
   console.log("REQ.params: ", req.params);
   console.log("ID: ", req.params.id);
-  for (let i = 0; i < articles.length; i++) {
-    if (articles[i].id == req.params.id) {
-      articles[i] = [];
-    }
-  }
+  articles = articles.filter((article) => article.id != req.params.id);
   res.json(articles);
 };
 
 const deleteArtcleByAuthor = (req, res) => {
   console.log("REQ.body: ", req.body);
   console.log("AUTHOR: ", req.body.author);
-  for (let i = 0; i < articles.length; i++) {
-    if (articles[i].author == req.body.author) {
-      articles[i] =[];
-    }
-  }
+  articles = articles.filter((article) => article.author != req.body.author);
   res.json(articles);
 };
 module.exports = {
