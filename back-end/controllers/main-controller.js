@@ -1,6 +1,5 @@
 const connection = require("../db");
 
-
 let articles = [
   {
     id: 1,
@@ -24,21 +23,35 @@ let articles = [
 
 let last_id = 7;
 
-const getAllArticlesDb = (req, res) => {
+const getAllArticles = (req, res) => {
   console.log("GETALLARTICLES: ");
-  const queryCommand = `SELECT * FROM users WHERE name = "John"`;
+  const queryCommand = `SELECT * FROM articles`;
   connection.query(queryCommand, (err, result, fields) => {
     if (err) throw err;
     // result are the data returned by mysql server
     console.log("RESULT: ", result);
+    res.json(result);
   });
 };
 
-const getAllArticles = (req, res) => {
+const createNewArticle = (req, res) => {
+  console.log("CREATENEWARTICLE: ");
+  const { title, author, description } = req.body;
+  const queryCommand = `INSERT INTO articles(title, description, author)
+  VALUES("${req.body.title}","${req.body.description}","${req.body.author}")`;
+  connection.query(queryCommand, (err, result, fields) => {
+    if (err) throw err;
+    // result are the data returned by mysql server
+    console.log("RESULT: ", result);
+    res.json("adding new article is complete");
+  });
+};
+
+const getAllArticles_express = (req, res) => {
   console.log("getAllArticles");
   res.json(articles);
 };
-const createNewArticle = (req, res) => {
+const createNewArticle_express = (req, res) => {
   console.log("creat new article");
   console.log("REQ.Body: ", req.body);
   req.body.id = ++last_id;
@@ -89,5 +102,4 @@ module.exports = {
   changeArticleAuthorById,
   deleteArtecleById,
   deleteArtcleByAuthor,
-  getAllArticlesDb
 };
