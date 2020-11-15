@@ -23,6 +23,8 @@ let articles = [
 
 let last_id = 7;
 
+//////////////////////////////////////// MySQL/////////////////////////////////////
+
 const getAllArticles = (req, res) => {
   console.log("GETALLARTICLES: ");
   const queryCommand = `SELECT * FROM articles`;
@@ -47,6 +49,57 @@ const createNewArticle = (req, res) => {
   });
 };
 
+const changeArticleTitleById = (req, res) => {
+  console.log("CHANGE ARTICLE BY ID: ");
+  const { title } = req.params;
+  const queryCommand = `UPDATE articles SET title="${req.params.newTitle}" 
+  WHERE id="${req.params.id}"`;
+  connection.query(queryCommand, (err, result, fields) => {
+    if (err) throw err;
+    // result are the data returned by mysql server
+    console.log("RESULT: ", result);
+    res.json("changing the article title by id is complete");
+  });
+};
+
+const changeArticleAuthorById = (req, res) => {
+  console.log("CHANGE ARTICLE AUTHOR BY ID: ");
+  const { author } = req.params;
+  const queryCommand = `UPDATE articles SET author="${req.body.newAuthor}" 
+  WHERE id="${req.params.id}"`;
+  connection.query(queryCommand, (err, result, fields) => {
+    if (err) throw err;
+    // result are the data returned by mysql server
+    console.log("RESULT: ", result);
+    res.json("changing the article author by id is complete");
+  });
+};
+
+const deleteArtecleById = (req, res) => {
+  console.log("DELETE ARTICLE BY ID: ");
+  const { articles } = req.params;
+  const queryCommand = `DELETE FROM articles WHERE id="${req.params.id}"`;
+  connection.query(queryCommand, (err, result, fields) => {
+    if (err) throw err;
+    // result are the data returned by mysql server
+    console.log("RESULT: ", result);
+    res.json("delete an article by ID is complete");
+  });
+};
+
+const deleteArtcleByAuthor = (req, res) => {
+  console.log("DELETE ARTICLE BY AUTHOR: ");
+  const { articles } = req.params;
+  const queryCommand = `DELETE FROM articles WHERE author="${req.body.author}"`;
+  connection.query(queryCommand, (err, result, fields) => {
+    if (err) throw err;
+    // result are the data returned by mysql server
+    console.log("RESULT: ", result);
+    res.json("delete an article by author is complete");
+  });
+};
+///////////////////////////////////// Express////////////////////////////////////
+
 const getAllArticles_express = (req, res) => {
   console.log("getAllArticles");
   res.json(articles);
@@ -59,7 +112,7 @@ const createNewArticle_express = (req, res) => {
   res.json(articles);
 };
 
-const changeArticleTitleById = (req, res) => {
+const changeArticleTitleById_express = (req, res) => {
   console.log("REQ.PARAMS: ", req.params);
   console.log("ID: ", req.params.id);
   for (let i = 0; i < articles.length; i++) {
@@ -70,7 +123,7 @@ const changeArticleTitleById = (req, res) => {
   res.json(articles);
 };
 
-const changeArticleAuthorById = (req, res) => {
+const changeArticleAuthorById_express = (req, res) => {
   console.log("REQ.params: ", req.params);
   console.log("ID: ", req.params.id);
   for (let i = 0; i < articles.length; i++) {
@@ -82,14 +135,14 @@ const changeArticleAuthorById = (req, res) => {
   res.json(articles);
 };
 
-const deleteArtecleById = (req, res) => {
+const deleteArtecleById_express = (req, res) => {
   console.log("REQ.params: ", req.params);
   console.log("ID: ", req.params.id);
   articles = articles.filter((article) => article.id != req.params.id);
   res.json(articles);
 };
 
-const deleteArtcleByAuthor = (req, res) => {
+const deleteArtcleByAuthor_express = (req, res) => {
   console.log("REQ.body: ", req.body);
   console.log("AUTHOR: ", req.body.author);
   articles = articles.filter((article) => article.author != req.body.author);
