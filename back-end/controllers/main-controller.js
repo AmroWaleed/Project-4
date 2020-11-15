@@ -36,7 +36,7 @@ const getAllArticles = (req, res) => {
   });
 };
 
-const getAllArticlesByAuther = (req,res) =>{
+const getAllArticlesByAuther = (req, res) => {
   console.log("GET ALL ARTICLES BY AUTHER: ");
   const queryCommand = `SELECT * FROM articles WHERE author="${req.body.author}"`;
   connection.query(queryCommand, (err, result) => {
@@ -46,8 +46,6 @@ const getAllArticlesByAuther = (req,res) =>{
     res.json(result);
   });
 };
-
-
 
 const createNewArticle = (req, res) => {
   console.log("CREATENEWARTICLE: ");
@@ -85,6 +83,19 @@ const changeArticleAuthorById = (req, res) => {
     // result are the data returned by mysql server
     console.log("RESULT: ", result);
     res.json("changing the article author by id is complete");
+  });
+};
+
+const changeArticleDescriptionById = (req, res) => {
+  console.log("change Article Description By Id: ");
+  const { description } = req.params;
+  const queryCommand = `UPDATE articles SET description="${req.body.newDescription}" 
+  WHERE id="${req.params.id}"`;
+  connection.query(queryCommand, (err, result, fields) => {
+    if (err) throw err;
+    // result are the data returned by mysql server
+    console.log("RESULT: ", result);
+    res.json("changing the article description by id is complete");
   });
 };
 
@@ -168,5 +179,6 @@ module.exports = {
   changeArticleAuthorById,
   deleteArtecleById,
   deleteArtcleByAuthor,
-  getAllArticlesByAuther
+  getAllArticlesByAuther,
+  changeArticleDescriptionById,
 };
