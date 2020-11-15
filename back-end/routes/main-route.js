@@ -9,10 +9,12 @@ const {
   deleteArtcleByAuthor,
   getAllArticlesByAuther,
   changeArticleDescriptionById,
+  recoverDeletedArticleByID,
 } = require("../controllers/main-controller");
 
 mainRouter.get("/articles", getAllArticles);
 mainRouter.get("/articles", getAllArticlesByAuther);
+mainRouter.get("/articles/:id", recoverDeletedArticleByID);
 mainRouter.post("/articles", createNewArticle);
 mainRouter.put("/articles/:id/:newTitle", changeArticleTitleById);
 mainRouter.put("/articles/:id", changeArticleAuthorById);

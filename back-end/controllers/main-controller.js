@@ -27,7 +27,18 @@ let last_id = 7;
 
 const getAllArticles = (req, res) => {
   console.log("GETALLARTICLES: ");
-  const queryCommand = `SELECT * FROM articles`;
+  const queryCommand = `SELECT * FROM articles WHERE is_deleted = 0`;
+  connection.query(queryCommand, (err, result) => {
+    if (err) throw err;
+    // result are the data returned by mysql server
+    console.log("RESULT: ", result);
+    res.json(result);
+  });
+};
+
+const recoverDeletedArticleByID = (req, res) => {
+  console.log("RECOVER DELETED ARTICLES BY ID: ");
+  const queryCommand = `SELECT * FROM is_deleted WHERE `;
   connection.query(queryCommand, (err, result) => {
     if (err) throw err;
     // result are the data returned by mysql server
@@ -62,7 +73,6 @@ const createNewArticle = (req, res) => {
 
 const changeArticleTitleById = (req, res) => {
   console.log("CHANGE ARTICLE BY ID: ");
-  const { title } = req.params;
   const queryCommand = `UPDATE articles SET title="${req.params.newTitle}" 
   WHERE id="${req.params.id}"`;
   connection.query(queryCommand, (err, result, fields) => {
@@ -75,7 +85,6 @@ const changeArticleTitleById = (req, res) => {
 
 const changeArticleAuthorById = (req, res) => {
   console.log("CHANGE ARTICLE AUTHOR BY ID: ");
-  const { author } = req.params;
   const queryCommand = `UPDATE articles SET author="${req.body.newAuthor}" 
   WHERE id="${req.params.id}"`;
   connection.query(queryCommand, (err, result, fields) => {
@@ -88,10 +97,9 @@ const changeArticleAuthorById = (req, res) => {
 
 const changeArticleDescriptionById = (req, res) => {
   console.log("change Article Description By Id: ");
-  const { description } = req.params;
   const queryCommand = `UPDATE articles SET description="${req.body.newDescription}" 
   WHERE id="${req.params.id}"`;
-  connection.query(queryCommand, (err, result, fields) => {
+  connection.query(queryCommand, (err, result) => {
     if (err) throw err;
     // result are the data returned by mysql server
     console.log("RESULT: ", result);
@@ -99,22 +107,43 @@ const changeArticleDescriptionById = (req, res) => {
   });
 };
 
+// const deleteArtecleById = (req, res) => {
+//   console.log("DELETE ARTICLE BY ID: ");
+//   const queryCommand = `DELETE FROM articles WHERE id="${req.params.id}"`;
+//   connection.query(queryCommand, (err, result) => {
+//     if (err) throw err;
+//     // result are the data returned by mysql server
+//     console.log("RESULT: ", result);
+//     res.json("delete an article by ID is complete");
+//   });
+// };
+
 const deleteArtecleById = (req, res) => {
   console.log("DELETE ARTICLE BY ID: ");
-  const { articles } = req.params;
-  const queryCommand = `DELETE FROM articles WHERE id="${req.params.id}"`;
-  connection.query(queryCommand, (err, result, fields) => {
+  const queryCommand = `UPDATE articles SET is_deleted= 1 
+  WHERE id="${req.params.id}"`;
+  connection.query(queryCommand, (err, result) => {
     if (err) throw err;
     // result are the data returned by mysql server
     console.log("RESULT: ", result);
     res.json("delete an article by ID is complete");
   });
 };
+// const deleteArtcleByAuthor = (req, res) => {
+//   console.log("DELETE ARTICLE BY AUTHOR: ");
+//   const queryCommand = `DELETE FROM articles WHERE author="${req.body.author}"`;
+//   connection.query(queryCommand, (err, result) => {
+//     if (err) throw err;
+//     // result are the data returned by mysql server
+//     console.log("RESULT: ", result);
+//     res.json("delete an article by author is complete");
+//   });
+// };
 
 const deleteArtcleByAuthor = (req, res) => {
   console.log("DELETE ARTICLE BY AUTHOR: ");
-  const { articles } = req.params;
-  const queryCommand = `DELETE FROM articles WHERE author="${req.body.author}"`;
+  const queryCommand = `UPDATE articles SET is_deleted= 1 
+  WHERE author="${req.body.author}"`;
   connection.query(queryCommand, (err, result, fields) => {
     if (err) throw err;
     // result are the data returned by mysql server
@@ -181,4 +210,5 @@ module.exports = {
   deleteArtcleByAuthor,
   getAllArticlesByAuther,
   changeArticleDescriptionById,
+  recoverDeletedArticleByID,
 };
