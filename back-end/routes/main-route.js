@@ -7,15 +7,15 @@ const {
   changeArticleTitleById,
   deleteArtecleById,
   deleteArtcleByAuthor,
-  
+  getAllArticlesByAuther,
 } = require("../controllers/main-controller");
 
 mainRouter.get("/articles", getAllArticles);
+mainRouter.get("/articles", getAllArticlesByAuther);
 mainRouter.post("/articles", createNewArticle);
 mainRouter.put("/articles/:id/:newTitle", changeArticleTitleById);
 mainRouter.put("/articles/:id", changeArticleAuthorById);
 mainRouter.delete("/articles/:id", deleteArtecleById);
 mainRouter.delete("/articles", deleteArtcleByAuthor);
-
 
 module.exports = mainRouter;

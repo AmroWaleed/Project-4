@@ -28,7 +28,7 @@ let last_id = 7;
 const getAllArticles = (req, res) => {
   console.log("GETALLARTICLES: ");
   const queryCommand = `SELECT * FROM articles`;
-  connection.query(queryCommand, (err, result, fields) => {
+  connection.query(queryCommand, (err, result) => {
     if (err) throw err;
     // result are the data returned by mysql server
     console.log("RESULT: ", result);
@@ -36,12 +36,25 @@ const getAllArticles = (req, res) => {
   });
 };
 
+const getAllArticlesByAuther = (req,res) =>{
+  console.log("GET ALL ARTICLES BY AUTHER: ");
+  const queryCommand = `SELECT * FROM articles WHERE author="${req.body.author}"`;
+  connection.query(queryCommand, (err, result) => {
+    if (err) throw err;
+    // result are the data returned by mysql server
+    console.log("RESULT: ", result);
+    res.json(result);
+  });
+};
+
+
+
 const createNewArticle = (req, res) => {
   console.log("CREATENEWARTICLE: ");
   const { title, author, description } = req.body;
   const queryCommand = `INSERT INTO articles(title, description, author)
   VALUES("${req.body.title}","${req.body.description}","${req.body.author}")`;
-  connection.query(queryCommand, (err, result, fields) => {
+  connection.query(queryCommand, (err, result) => {
     if (err) throw err;
     // result are the data returned by mysql server
     console.log("RESULT: ", result);
@@ -155,4 +168,5 @@ module.exports = {
   changeArticleAuthorById,
   deleteArtecleById,
   deleteArtcleByAuthor,
+  getAllArticlesByAuther
 };
