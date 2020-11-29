@@ -1,0 +1,17 @@
+.app {
+  border: solid green 5px;
+}
+.new-item {
+  border: solid red 4px;
+}
+.article-list {
+  border: solid blue 4px;
+}
+.article-item {
+  border: solid black 3px;
+}
+.author {
+  font-style: italic;
+  font-weight: bold;
+}
+/* don't forget to do line through */
