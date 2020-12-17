@@ -71,6 +71,7 @@ const createNewArticle = (req, res) => {
   });
 };
 
+
 const changeArticleTitleById = (req, res) => {
   console.log("CHANGE ARTICLE BY ID: ");
   const queryCommand = `UPDATE articles SET title="${req.params.newTitle}" 
@@ -211,4 +212,5 @@ module.exports = {
   getAllArticlesByAuther,
   changeArticleDescriptionById,
   recoverDeletedArticleByID,
+  
 };

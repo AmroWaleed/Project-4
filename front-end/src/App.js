@@ -18,7 +18,7 @@ export default function App() {
     axios
       .get(`http://localhost:5000/articles`)
       .then((response) => {
-        // console.log('RESPONSE: ', response);
+        console.log('RESPONSE: ', response);
         console.log('DATA: ', response.data);
         setArticles(response.data);
       })
@@ -27,8 +27,8 @@ export default function App() {
       });
   };
 
-  const renderArticles=articles.map((articleObj) => {
-    return <ArticleItem article={articleObj}/> 
+  const renderArticles=articles.map((articleObj,index) => {
+    return <ArticleItem key={index} article={articleObj}/> 
   });
 
   return (
@@ -41,7 +41,7 @@ export default function App() {
 
       <button onClick={getAllArticles}>GET ARTICLES</button>
 
-      <NewItem soso={getAllArticles}  title='Add Your Articles'   />
+      <NewItem allArticles={getAllArticles}  title='Add Your Articles'   />
 
       {renderArticles}
     </div>

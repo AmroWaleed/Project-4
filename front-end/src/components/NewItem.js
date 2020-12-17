@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import axios from 'axios';
+import React, { useState } from 'react';
+
 
 export default function NewItem(props) {
   const [title, setTitle] = useState('');
@@ -17,7 +18,7 @@ export default function NewItem(props) {
         console.log('RESPONSE: ', response);
         console.log('DATA: ', response.data);
         if (response.status === 200) {
-          props.soso();
+          props.allArticles();
         }
       })
       .catch((err) => {
