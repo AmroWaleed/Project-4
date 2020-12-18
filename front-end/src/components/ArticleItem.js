@@ -1,18 +1,20 @@
-import axios from "axios";
 import React, { useState } from "react";
+import axios from "axios";
 
 export default function ArticleItem(props) {
   const { title, description, author, id } = props.article;
-  const [newAuther, setNewAuther] = useState(""); //???? why
+  const [newAuthor, setAuthor] = useState(''); //???? why
 
   const changeArticleAuthorById = () => {
     axios
       .put(`http://localhost:5000/articles/${id}`, {
-        newAuthor: newAuther,
+        newAuthor: newAuthor,
       })
       .then((response) => {
         console.log("RES: ", response);
-        if (response.status === 200) props.getAllArticles();
+        if (response.status === 200) {
+          props.getArticles();
+        }
       })
       .catch((err) => {
         console.log("ERR: ", err);
@@ -23,8 +25,8 @@ export default function ArticleItem(props) {
     axios
       .delete(`http://localhost:5000/articles/${id}`)
       .then((response) => {
-        if (response.state === 200) {
-          props.getAllArticles();
+        if (response.status === 200) {
+          props.getArticles();
         }
       })
       .catch((err) => {
@@ -40,21 +42,16 @@ export default function ArticleItem(props) {
 
       <input type="text" placeholder="article new author ..." />
       <button
-        onClick={() => {
-          changeArticleAuthorById(id);
+        onClick={() => {changeArticleAuthorById(id);
         }}
       >
-        Update current author
+        Update Current Author
       </button>
-
-      <button
-        onClick={() => {
-          deleteArticleById(id);
-        }}
-      >
+      {/* 
+      <button onClick={() => {deleteArticleById(id);}}>
         Delete
-      </button>
-      <button onClick={deleteAticleBuId} >Delete</button>
+      </button> */}
+      <button onClick={()=>{deleteArticleById(id)}}>Delete</button>
     </div>
   );
 }
