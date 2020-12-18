@@ -27,7 +27,7 @@ let last_id = 7;
 
 const getAllArticles = (req, res) => {
   console.log("GETALLARTICLES: ");
-  const queryCommand = `SELECT * FROM articles WHERE is_deleted = 0`;
+  const queryCommand = `SELECT * FROM articles `;
   connection.query(queryCommand, (err, result) => {
     if (err) throw err;
     // result are the data returned by mysql server
@@ -36,16 +36,16 @@ const getAllArticles = (req, res) => {
   });
 };
 
-const recoverDeletedArticleByID = (req, res) => {
-  console.log("RECOVER DELETED ARTICLES BY ID: ");
-  const queryCommand = `SELECT * FROM is_deleted WHERE `;
-  connection.query(queryCommand, (err, result) => {
-    if (err) throw err;
-    // result are the data returned by mysql server
-    console.log("RESULT: ", result);
-    res.json(result);
-  });
-};
+// const recoverDeletedArticleByID = (req, res) => {
+//   console.log("RECOVER DELETED ARTICLES BY ID: ");
+//   const queryCommand = `SELECT * FROM is_deleted WHERE `;
+//   connection.query(queryCommand, (err, result) => {
+//     if (err) throw err;
+//     // result are the data returned by mysql server
+//     console.log("RESULT: ", result);
+//     res.json(result);
+//   });
+// };
 
 const getAllArticlesByAuther = (req, res) => {
   console.log("GET ALL ARTICLES BY AUTHER: ");
@@ -108,21 +108,9 @@ const changeArticleDescriptionById = (req, res) => {
   });
 };
 
-// const deleteArtecleById = (req, res) => {
-//   console.log("DELETE ARTICLE BY ID: ");
-//   const queryCommand = `DELETE FROM articles WHERE id="${req.params.id}"`;
-//   connection.query(queryCommand, (err, result) => {
-//     if (err) throw err;
-//     // result are the data returned by mysql server
-//     console.log("RESULT: ", result);
-//     res.json("delete an article by ID is complete");
-//   });
-// };
-
 const deleteArtecleById = (req, res) => {
   console.log("DELETE ARTICLE BY ID: ");
-  const queryCommand = `UPDATE articles SET is_deleted= 1 
-  WHERE id="${req.params.id}"`;
+  const queryCommand = `DELETE FROM articles WHERE id="${req.params.id}"`;
   connection.query(queryCommand, (err, result) => {
     if (err) throw err;
     // result are the data returned by mysql server
@@ -130,6 +118,18 @@ const deleteArtecleById = (req, res) => {
     res.json("delete an article by ID is complete");
   });
 };
+
+// const deleteArtecleById = (req, res) => {
+//   console.log("DELETE ARTICLE BY ID: ");
+//   const queryCommand = `UPDATE articles SET is_deleted= 1 
+//   WHERE id="${req.params.id}"`;
+//   connection.query(queryCommand, (err, result) => {
+//     if (err) throw err;
+//     // result are the data returned by mysql server
+//     console.log("RESULT: ", result);
+//     res.json("delete an article by ID is complete");
+//   });
+// };
 // const deleteArtcleByAuthor = (req, res) => {
 //   console.log("DELETE ARTICLE BY AUTHOR: ");
 //   const queryCommand = `DELETE FROM articles WHERE author="${req.body.author}"`;
@@ -141,17 +141,17 @@ const deleteArtecleById = (req, res) => {
 //   });
 // };
 
-const deleteArtcleByAuthor = (req, res) => {
-  console.log("DELETE ARTICLE BY AUTHOR: ");
-  const queryCommand = `UPDATE articles SET is_deleted= 1 
-  WHERE author="${req.body.author}"`;
-  connection.query(queryCommand, (err, result, fields) => {
-    if (err) throw err;
-    // result are the data returned by mysql server
-    console.log("RESULT: ", result);
-    res.json("delete an article by author is complete");
-  });
-};
+// const deleteArtcleByAuthor = (req, res) => {
+//   console.log("DELETE ARTICLE BY AUTHOR: ");
+//   const queryCommand = `UPDATE articles SET is_deleted= 1 
+//   WHERE author="${req.body.author}"`;
+//   connection.query(queryCommand, (err, result, fields) => {
+//     if (err) throw err;
+//     // result are the data returned by mysql server
+//     console.log("RESULT: ", result);
+//     res.json("delete an article by author is complete");
+//   });
+// };
 ///////////////////////////////////// Express////////////////////////////////////
 
 const getAllArticles_express = (req, res) => {
@@ -208,9 +208,9 @@ module.exports = {
   changeArticleTitleById,
   changeArticleAuthorById,
   deleteArtecleById,
-  deleteArtcleByAuthor,
+  // deleteArtcleByAuthor,
   getAllArticlesByAuther,
   changeArticleDescriptionById,
-  recoverDeletedArticleByID,
+  // recoverDeletedArticleByID,
   
 };
